@@ -1,16 +1,15 @@
 package models
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
 
 type (
-	TodoModel struct {
+	UserModel struct {
 		gorm.Model
-		Title     string `json:"title"`
-		Completed int    `json:"completed"`
-	}
-	TransformedTodo struct {
-		ID        uint   `json:"id"`
-		Title     string `json:"title"`
-		Completed bool   `json:"completed"`
+		Name     string    `json:"name"`
+		Password int       `json:"password"`
+		BirthDay time.Time `json:"birth_day"`
 	}
 )
