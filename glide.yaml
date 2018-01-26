@@ -1,0 +1,8 @@
+package: github.com/narhakobyan/go-pg-api
+import:
+- package: github.com/gin-gonic/gin
+  version: ~1.2.0
+- package: github.com/jinzhu/gorm
+  version: ~1.0.0
+  subpackages:
+  - dialects/postgres

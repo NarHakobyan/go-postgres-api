@@ -26,4 +26,3 @@ gen
 # Go vendor
 
 vendor/*
-!vendor/vendor.json
