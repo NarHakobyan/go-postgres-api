@@ -5,6 +5,7 @@ import (
 	"github.com/narhakobyan/go-pg-api/database"
 	"github.com/narhakobyan/go-pg-api/database/models"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -17,6 +18,21 @@ func init() {
 		var users []models.User
 		database.Db.Find(&users)
 		context.JSON(http.StatusOK, users)
+	})
+
+	UserRouter.GET("/:id", func(context *gin.Context) {
+		var user models.User
+
+		id, err := strconv.ParseInt(context.Param("id"), 0, 64)
+		if err != nil {
+			context.JSON(http.StatusBadRequest, gin.H{
+				"message": "Invalid user id",
+			})
+			return
+		}
+
+		database.Db.Find(&user, id)
+		context.JSON(http.StatusOK, user)
 	})
 
 	UserRouter.POST("/", func(context *gin.Context) {

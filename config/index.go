@@ -33,6 +33,7 @@ func init() {
 	viper.SetConfigName(env)
 
 	err = viper.ReadInConfig()
+
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}

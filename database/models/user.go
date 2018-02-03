@@ -1,16 +1,20 @@
 package models
 
 import (
-	"github.com/jinzhu/gorm"
-	"golang.org/x/crypto/bcrypt"
 	"time"
+
+	"github.com/jinzhu/gorm"
+	"github.com/narhakobyan/go-pg-api/database"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	gorm.Model
+	database.Model
 	Name     string    `json:"name"`
+	Email    string    `json:"email"`
 	Password string    `json:"password"`
 	BirthDay time.Time `json:"birth_day"`
+	Role     int       `gorm:"default:1" json:"role"`
 }
 
 func (user *User) BeforeCreate(scope *gorm.Scope) error {
