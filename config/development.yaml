@@ -1,2 +1,7 @@
 server:
   port: 8000
+database:
+  host: localhost
+  user: postgres
+  dbname: go_rest_api
+  password: admin

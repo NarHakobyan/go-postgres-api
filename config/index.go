@@ -11,6 +11,12 @@ type config struct {
 	Server struct {
 		Port string
 	}
+	Database struct {
+		Host     string
+		User     string
+		DbName   string
+		Password string
+	}
 }
 
 var C config
