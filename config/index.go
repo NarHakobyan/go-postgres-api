@@ -46,6 +46,6 @@ func init() {
 
 	err = viper.Unmarshal(&C)
 	if err != nil {
-		fmt.Println("Unable to decode into struct, %v", err)
+		panic(fmt.Errorf("Unable to decode into struct: %s \n", err))
 	}
 }
