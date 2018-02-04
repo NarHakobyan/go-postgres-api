@@ -13,6 +13,7 @@ func init() {
 	UserRouter.GET("/", controllers.UserController.GetUsers)
 
 	UserRouter.GET("/:id", controllers.UserController.GetUser)
+	UserRouter.PUT("/:id", controllers.UserController.UpdateUser)
 
 	UserRouter.POST("/", controllers.UserController.PostUser)
 }
