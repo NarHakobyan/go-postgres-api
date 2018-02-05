@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/asaskevich/govalidator"
+  packages = ["."]
+  revision = "521b25f4b05fd26bec69d9dedeb8f9c9a83939a8"
+  version = "v8"
+
+[[projects]]
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
@@ -176,6 +182,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e16e5c5a549567af351da8c02393796275a375b2eb3877205e329c49a617d79c"
+  inputs-digest = "33736eacf5e53b21b310112023dfbc9e10b865c938b2998ce50589bf344e876d"
   solver-name = "gps-cdcl"
   solver-version = 1

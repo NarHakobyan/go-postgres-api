@@ -10,11 +10,20 @@ import (
 
 type User struct {
 	database.Model
+	Name     string    `json:"name" json:"required"`
+	Email    string    `json:"email" valid:"email"`
+	Password string    `json:"password" json:"required"`
+	BirthDay time.Time `json:"birth_day" json:"required"`
+	Role     int       `gorm:"default:1" json:"role" json:"required"`
+}
+
+type transformedUser struct {
+	ID       uint      `json:"id"`
 	Name     string    `json:"name"`
 	Email    string    `json:"email"`
 	Password string    `json:"password"`
 	BirthDay time.Time `json:"birth_day"`
-	Role     int       `gorm:"default:1" json:"role"`
+	Role     int       `gjson:"role"`
 }
 
 func (user *User) BeforeCreate(scope *gorm.Scope) error {

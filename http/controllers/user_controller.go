@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/narhakobyan/go-pg-api/database"
 	"github.com/narhakobyan/go-pg-api/database/models"
@@ -76,10 +77,17 @@ func (c *userController) UpdateUser(context *gin.Context) {
 func (c *userController) PostUser(context *gin.Context) {
 	var user models.User
 	if err := context.BindJSON(&user); err != nil {
-		context.Status(400)
+		context.Status(http.StatusBadRequest)
 		return
 	}
 	user.BirthDay = time.Now()
+	valid, err := govalidator.ValidateStruct(user)
+	if valid == false {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"data": err.Error(),
+		})
+		return
+	}
 	database.Db.Create(&user)
 	context.JSON(200, user)
 }
