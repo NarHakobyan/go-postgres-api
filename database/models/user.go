@@ -4,12 +4,12 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/narhakobyan/go-pg-api/database"
+	. "github.com/narhakobyan/go-pg-api/database"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	database.Model
+	Model
 	Name     string    `json:"name" json:"required"`
 	Email    string    `json:"email" valid:"email"`
 	Password string    `json:"password" json:"required"`

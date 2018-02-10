@@ -7,21 +7,21 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"github.com/narhakobyan/go-pg-api/database"
-	"github.com/narhakobyan/go-pg-api/database/models"
+	. "github.com/narhakobyan/go-pg-api/database"
+	. "github.com/narhakobyan/go-pg-api/database/models"
 )
 
 type userController struct {
 }
 
 func (c *userController) GetUsers(context *gin.Context) {
-	var users []models.User
-	database.Db.Find(&users)
+	var users []User
+	Db.Find(&users)
 	context.JSON(http.StatusOK, users)
 }
 
 func (c *userController) GetUser(context *gin.Context) {
-	var user models.User
+	var user User
 
 	id, err := strconv.Atoi(context.Param("id"))
 	if err != nil {
@@ -31,7 +31,7 @@ func (c *userController) GetUser(context *gin.Context) {
 		return
 	}
 
-	database.Db.Find(&user, id)
+	Db.Find(&user, id)
 
 	if user.ID == 0 {
 		context.JSON(http.StatusNotFound, gin.H{
@@ -43,8 +43,8 @@ func (c *userController) GetUser(context *gin.Context) {
 }
 
 func (c *userController) UpdateUser(context *gin.Context) {
-	var user models.User
-	var userBody models.User
+	var user User
+	var userBody User
 
 	if err := context.BindJSON(&userBody); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
@@ -61,7 +61,7 @@ func (c *userController) UpdateUser(context *gin.Context) {
 		return
 	}
 
-	database.Db.Find(&user, id)
+	Db.Find(&user, id)
 
 	if user.ID == 0 {
 		context.JSON(http.StatusNotFound, gin.H{
@@ -69,13 +69,13 @@ func (c *userController) UpdateUser(context *gin.Context) {
 		})
 		return
 	}
-	database.Db.Model(&user).Updates(userBody)
+	Db.Model(&user).Updates(userBody)
 
 	context.JSON(http.StatusOK, user)
 }
 
 func (c *userController) PostUser(context *gin.Context) {
-	var user models.User
+	var user User
 	if err := context.BindJSON(&user); err != nil {
 		context.Status(http.StatusBadRequest)
 		return
@@ -88,7 +88,7 @@ func (c *userController) PostUser(context *gin.Context) {
 		})
 		return
 	}
-	database.Db.Create(&user)
+	Db.Create(&user)
 	context.JSON(200, user)
 }
 
