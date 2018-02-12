@@ -1,0 +1,16 @@
+package: github.com/narhakobyan/go-pg-api
+import:
+- package: github.com/asaskevich/govalidator
+  version: ^8.0.0
+- package: github.com/gin-gonic/gin
+  version: ^1.2.0
+- package: github.com/jinzhu/gorm
+  version: ^1.0.0
+  subpackages:
+  - dialects/postgres
+- package: github.com/spf13/viper
+  version: ^1.0.0
+- package: github.com/go-playground/form
+  version: ^3.1.0
+- package: github.com/fatih/structs
+  version: ^1.0.0
