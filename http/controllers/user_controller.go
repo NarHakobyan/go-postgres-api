@@ -3,16 +3,18 @@ package controllers
 import (
 	"net/http"
 	"strconv"
-	"time"
+	"strings"
 
 	"github.com/asaskevich/govalidator"
+	"github.com/fatih/structs"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/narhakobyan/go-pg-api/common/constants/roles"
 	. "github.com/narhakobyan/go-pg-api/database"
 	. "github.com/narhakobyan/go-pg-api/database/models"
 )
 
-type userController struct {
-}
+type userController struct{}
 
 func (c *userController) GetUsers(context *gin.Context) {
 	var users []User
@@ -22,20 +24,19 @@ func (c *userController) GetUsers(context *gin.Context) {
 
 func (c *userController) GetUser(context *gin.Context) {
 	var user User
-
-	id, err := strconv.Atoi(context.Param("id"))
-	if err != nil {
+	var id int
+	var err error
+	if id, err = strconv.Atoi(context.Param("id")); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
 			"message": "Invalid user id",
 		})
 		return
 	}
-
 	Db.Find(&user, id)
 
-	if user.ID == 0 {
+	if structs.IsZero(user) {
 		context.JSON(http.StatusNotFound, gin.H{
-			"message": "User not found",
+			"error": "User not found",
 		})
 		return
 	}
@@ -48,24 +49,23 @@ func (c *userController) UpdateUser(context *gin.Context) {
 
 	if err := context.BindJSON(&userBody); err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
-			"message": "Data is not valid",
+			"error": "Data is not valid",
 		})
 		return
 	}
-
 	id, err := strconv.Atoi(context.Param("id"))
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{
-			"message": "Invalid user id",
+			"error": "Invalid user id",
 		})
 		return
 	}
 
 	Db.Find(&user, id)
 
-	if user.ID == 0 {
+	if structs.IsZero(user) {
 		context.JSON(http.StatusNotFound, gin.H{
-			"message": "User not found",
+			"error": "User not found",
 		})
 		return
 	}
@@ -76,20 +76,19 @@ func (c *userController) UpdateUser(context *gin.Context) {
 
 func (c *userController) PostUser(context *gin.Context) {
 	var user User
-	if err := context.BindJSON(&user); err != nil {
-		context.Status(http.StatusBadRequest)
+
+	if err := context.ShouldBindWith(&user, binding.FormPost); err != nil {
+		context.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
-	user.BirthDay = time.Now()
-	valid, err := govalidator.ValidateStruct(user)
-	if valid == false {
-		context.JSON(http.StatusBadRequest, gin.H{
-			"data": err.Error(),
-		})
-		return
+
+	user.Role = roles.UserRole
+	if valid, err := govalidator.ValidateStruct(user); err != nil || valid == false {
+		context.JSON(http.StatusUnprocessableEntity, gin.H{"error": strings.Split(err.Error(), ";")})
 	}
+
 	Db.Create(&user)
-	context.JSON(200, user)
+	context.JSON(http.StatusOK, gin.H{"data": user})
 }
 
 var UserController = &userController{}

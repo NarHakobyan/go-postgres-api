@@ -3,27 +3,20 @@ package models
 import (
 	"time"
 
+	"github.com/fatih/structs"
 	"github.com/jinzhu/gorm"
+	"github.com/narhakobyan/go-pg-api/common/constants/roles"
 	. "github.com/narhakobyan/go-pg-api/database"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
 	Model
-	Name     string    `json:"name" json:"required"`
-	Email    string    `json:"email" valid:"email"`
-	Password string    `json:"password" json:"required"`
-	BirthDay time.Time `json:"birth_day" json:"required"`
-	Role     int       `gorm:"default:1" json:"role" json:"required"`
-}
-
-type transformedUser struct {
-	ID       uint      `json:"id"`
-	Name     string    `json:"name"`
-	Email    string    `json:"email"`
-	Password string    `json:"password"`
-	BirthDay time.Time `json:"birth_day"`
-	Role     int       `gjson:"role"`
+	Name     string         `form:"name" json:"name" valid:"required~Name is required"`
+	Email    string         `form:"email" json:"email" valid:"email~Email isn't valid"`
+	Password string         `form:"password" json:"-" binding:"required" valid:"required~Password is required"`
+	BirthDay time.Time      `form:"birthday" json:"birthday" valid:"required~Birth day is required" time_format:"02-01-2006"`
+	Role     roles.RoleType `gorm:"default:0" json:"role"`
 }
 
 func (user *User) BeforeCreate(scope *gorm.Scope) error {
@@ -34,6 +27,12 @@ func (user *User) BeforeCreate(scope *gorm.Scope) error {
 	scope.SetColumn("Password", hash)
 
 	return nil
+}
+
+func (user *User) ToJSON() map[string]interface{} {
+	userObject := structs.Map(user)
+	delete(userObject, "password")
+	return userObject
 }
 func (user *User) ComparePassword(password string) bool {
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
