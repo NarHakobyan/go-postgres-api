@@ -9,7 +9,7 @@ import (
 
 var UserRouter *gin.RouterGroup
 
-func init() {
+func initUserRoutes() {
 	UserRouter = ApiRouter.Group("/users")
 
 	UserRouter.Use(middlewares.AuthMiddleware([]roles.RoleType{roles.AdminRole}))

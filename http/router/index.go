@@ -9,4 +9,7 @@ func init() {
 	Router = gin.Default()
 
 	ApiRouter = Router.Group("/api/v1")
+
+	initAuthRoutes()
+	initUserRoutes()
 }
