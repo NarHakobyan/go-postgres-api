@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/narhakobyan/go-pg-api/config"
-	"github.com/narhakobyan/go-pg-api/http/router"
+	. "github.com/narhakobyan/go-pg-api/http/router"
 	"github.com/spf13/viper"
 )
 
@@ -15,8 +15,11 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	router.Router.GET("/", func(context *gin.Context) {
+	Router.Use(gin.Logger())
+	Router.Use(gin.Recovery())
+
+	Router.GET("/", func(context *gin.Context) {
 		context.String(http.StatusOK, "WORKING")
 	})
-	router.Router.Run(":" + config.C.Server.Port)
+	Router.Run(":" + config.C.Server.Port)
 }

@@ -1,8 +1,10 @@
-hash: f294d0004fc7696052520603e78aca89dec7e87db955c1fbb5fe1d2b5bc5a1c4
-updated: 2018-02-12T22:38:38.169345194+04:00
+hash: 1e064285b7b188a0d2e582342997b2ddcbde9dcc918e3dd60b9cf927021b257e
+updated: 2018-02-13T00:09:35.982117065+04:00
 imports:
 - name: github.com/asaskevich/govalidator
   version: 521b25f4b05fd26bec69d9dedeb8f9c9a83939a8
+- name: github.com/dgrijalva/jwt-go
+  version: dbeaa9332f19a944acb5736b4456cfcc02140e29
 - name: github.com/fatih/structs
   version: a720dfa8df582c51dee1b36feabb906bde1588bd
 - name: github.com/fsnotify/fsnotify
@@ -51,7 +53,7 @@ imports:
 - name: github.com/pelletier/go-toml
   version: acdc4509485b587f5e675510c4f2c63e90ff68a8
 - name: github.com/spf13/afero
-  version: bb8f1927f2a9d3ab41c9340aa034f6b803f4359c
+  version: bbf41cb36dffe15dff5bf7e18c447801e7ffe163
   subpackages:
   - mem
 - name: github.com/spf13/cast
