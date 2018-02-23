@@ -1,16 +1,27 @@
 package main
 
 import (
-	"net/http"
+	"flag"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/narhakobyan/go-pg-api/config"
+	"github.com/narhakobyan/go-pg-api/database"
+	"github.com/narhakobyan/go-pg-api/database/models"
 	. "github.com/narhakobyan/go-pg-api/http/router"
 	"github.com/spf13/viper"
 )
 
 func main() {
 
+	dbSync := flag.Bool("sdb", false, "Force sync database models")
+	flag.Parse()
+
+	if *dbSync == true {
+		database.Db.AutoMigrate(&models.User{})
+		fmt.Println("Database sync was successfully done")
+		return
+	}
 	if viper.Get("env") == "production" {
 		gin.SetMode(gin.ReleaseMode)
 	}
@@ -18,8 +29,5 @@ func main() {
 	Router.Use(gin.Logger())
 	Router.Use(gin.Recovery())
 
-	Router.GET("/", func(context *gin.Context) {
-		context.String(http.StatusOK, "WORKING")
-	})
 	Router.Run(":" + config.C.Server.Port)
 }
