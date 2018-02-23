@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/narhakobyan/go-pg-api/common/auth"
+	"github.com/narhakobyan/go-pg-api/common/constants"
 	. "github.com/narhakobyan/go-pg-api/database"
 	. "github.com/narhakobyan/go-pg-api/database/models"
 )
@@ -22,7 +23,7 @@ type Login struct {
 	Password string `form:"password" json:"password" valid:"required~Password is required"`
 }
 
-func (c *authController) PostLogin(context *gin.Context) {
+func (controller *authController) PostLogin(context *gin.Context) {
 	var login Login
 	var user User
 	if err := context.ShouldBindWith(&login, binding.FormPost); err != nil {
@@ -64,8 +65,14 @@ func (c *authController) PostLogin(context *gin.Context) {
 	}
 }
 
-func (c *authController) PostRegister(context *gin.Context) {
+func (controller *authController) PostRegister(context *gin.Context) {
 
+}
+
+func (controller *authController) GetMyProfile(context *gin.Context) {
+	user, _ := context.Get(constants.AuthUser)
+	user = user.(*User)
+	context.JSON(http.StatusOK, user)
 }
 
 var AuthController = &authController{}

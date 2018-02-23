@@ -16,13 +16,13 @@ import (
 
 type userController struct{}
 
-func (c *userController) GetUsers(context *gin.Context) {
+func (controller *userController) GetUsers(context *gin.Context) {
 	var users []User
 	Db.Find(&users)
 	context.JSON(http.StatusOK, users)
 }
 
-func (c *userController) GetUser(context *gin.Context) {
+func (controller *userController) GetUser(context *gin.Context) {
 	var user User
 	var id int
 	var err error
@@ -43,7 +43,7 @@ func (c *userController) GetUser(context *gin.Context) {
 	context.JSON(http.StatusOK, user)
 }
 
-func (c *userController) UpdateUser(context *gin.Context) {
+func (controller *userController) UpdateUser(context *gin.Context) {
 	var user User
 	var userBody User
 
@@ -74,7 +74,7 @@ func (c *userController) UpdateUser(context *gin.Context) {
 	context.JSON(http.StatusOK, user)
 }
 
-func (c *userController) PostUser(context *gin.Context) {
+func (controller *userController) PostUser(context *gin.Context) {
 	var user User
 
 	if err := context.ShouldBindWith(&user, binding.FormPost); err != nil {

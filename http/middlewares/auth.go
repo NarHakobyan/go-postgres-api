@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -32,8 +31,7 @@ func AuthMiddleware(roles []roles.RoleType) gin.HandlerFunc {
 		if claims, ok := token.Claims.(*auth.Claims); ok && token.Valid {
 			var user models.User
 			database.Db.Find(&user, claims.UserId)
-			fmt.Println(user)
-			c.Set(constants.AuthUser, user)
+			c.Set(constants.AuthUser, &user)
 			for _, role := range roles {
 				if role == user.Role {
 					c.Next()
