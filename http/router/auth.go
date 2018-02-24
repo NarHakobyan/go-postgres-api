@@ -5,6 +5,7 @@ import (
 	"github.com/narhakobyan/go-pg-api/core/constants/roles"
 	. "github.com/narhakobyan/go-pg-api/http/controllers"
 	"github.com/narhakobyan/go-pg-api/http/middlewares"
+	"github.com/narhakobyan/go-pg-api/http/response"
 )
 
 var AuthRouter *gin.RouterGroup
@@ -12,7 +13,7 @@ var AuthRouter *gin.RouterGroup
 func initAuthRoutes() {
 	AuthRouter = ApiRouter.Group("/auth")
 
-	AuthRouter.POST("/login", AuthController.PostLogin)
-	AuthRouter.POST("/register", AuthController.PostRegister)
-	AuthRouter.GET("/my-profile", middlewares.AuthMiddleware([]roles.RoleType{roles.AdminRole, roles.UserRole}), AuthController.GetMyProfile)
+	AuthRouter.POST("/login", response.HandleFunc(AuthController.PostLogin))
+	AuthRouter.POST("/register", response.HandleFunc(AuthController.PostRegister))
+	AuthRouter.GET("/my-profile", middlewares.AuthMiddleware([]roles.RoleType{roles.AdminRole, roles.UserRole}), response.HandleFunc(AuthController.GetMyProfile))
 }
