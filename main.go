@@ -22,6 +22,9 @@ func main() {
 		fmt.Println("Database sync was successfully done")
 		return
 	}
+
+	InitBaseRouter()
+
 	if viper.Get("env") == "production" {
 		gin.SetMode(gin.ReleaseMode)
 	}
