@@ -10,8 +10,8 @@ import (
 	"github.com/fatih/structs"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/narhakobyan/go-pg-api/common/auth"
-	"github.com/narhakobyan/go-pg-api/common/constants"
+	"github.com/narhakobyan/go-pg-api/core/auth"
+	"github.com/narhakobyan/go-pg-api/core/constants"
 	. "github.com/narhakobyan/go-pg-api/database"
 	. "github.com/narhakobyan/go-pg-api/database/models"
 )

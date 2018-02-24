@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/narhakobyan/go-pg-api/common/constants/roles"
+	"github.com/narhakobyan/go-pg-api/core/constants/roles"
 	. "github.com/narhakobyan/go-pg-api/http/controllers"
 	"github.com/narhakobyan/go-pg-api/http/middlewares"
 )

@@ -5,7 +5,7 @@ import (
 
 	"github.com/fatih/structs"
 	"github.com/jinzhu/gorm"
-	"github.com/narhakobyan/go-pg-api/common/constants/roles"
+	"github.com/narhakobyan/go-pg-api/core/constants/roles"
 	. "github.com/narhakobyan/go-pg-api/database"
 	"golang.org/x/crypto/bcrypt"
 )
