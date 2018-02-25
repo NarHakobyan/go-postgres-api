@@ -23,6 +23,8 @@ type User struct {
 	Role     roles.RoleType `gorm:"default:0" json:"role"`
 }
 
+var UserQuery = NewUserQuerySet(Db)
+
 func (user *User) BeforeCreate(scope *gorm.Scope) error {
 	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
