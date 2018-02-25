@@ -10,6 +10,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+//go:generate goqueryset -in user.go
+
+// User struct represents user model.
+// gen:qs
 type User struct {
 	Model
 	Name     string         `form:"name" json:"name" valid:"required~Name is required"`
