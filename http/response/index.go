@@ -1,9 +1,7 @@
 package response
 
 import (
-	"fmt"
 	"net/http"
-	"reflect"
 
 	"github.com/gin-gonic/gin"
 )
@@ -40,9 +38,6 @@ func (context *Context) InternalServerError(message string, body interface{}) {
 }
 
 func (context *Context) UnprocessableEntity(message string, body interface{}) {
-	bodyType := reflect.TypeOf(body)
-	fmt.Println(bodyType.Kind())
-
 	switch body.(type) {
 	case []error:
 		var errs []string
