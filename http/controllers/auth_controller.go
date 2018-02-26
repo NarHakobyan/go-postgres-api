@@ -9,8 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/narhakobyan/go-pg-api/core/auth"
-	"github.com/narhakobyan/go-pg-api/core/constants"
-	. "github.com/narhakobyan/go-pg-api/database"
 	. "github.com/narhakobyan/go-pg-api/database/models"
 	"github.com/narhakobyan/go-pg-api/http/response"
 )
@@ -36,7 +34,7 @@ func (controller *authController) PostLogin(context *response.Context) {
 		return
 	}
 
-	Db.Where("email = ?", login.Email).First(&user)
+	UserQuery.EmailEq(login.Email).One(&user)
 
 	if empty := structs.IsZero(user); empty == true {
 		context.BadRequest("Email or password is incorrect", nil)
@@ -67,8 +65,8 @@ func (controller *authController) PostRegister(context *response.Context) {
 }
 
 func (controller *authController) GetMyProfile(context *response.Context) {
-	user, _ := context.Get(constants.AuthUser)
-	user = user.(*User)
+	user, _ := context.GetUser()
+
 	context.Ok("", user)
 }
 

@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/narhakobyan/go-pg-api/core/constants"
+	"github.com/narhakobyan/go-pg-api/database/models"
 )
 
 type Context struct {
@@ -19,6 +21,13 @@ func HandleFunc(handler func(*Context)) func(*gin.Context) {
 
 func (context *Context) Ok(message string, body interface{}) {
 	context.Send(http.StatusOK, message, body)
+}
+
+func (context *Context) GetUser() (*models.User, bool) {
+	userOnject, exist := context.Get(constants.AuthUser)
+	user := userOnject.(*models.User)
+
+	return user, exist
 }
 
 func (context *Context) Created(message string, body interface{}) {
