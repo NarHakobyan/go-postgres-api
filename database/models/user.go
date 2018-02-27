@@ -26,8 +26,8 @@ type User struct {
 
 var UserQuery = NewUserQuerySet(Db)
 
-func (user *User) BeforeCreate(scope *gorm.Scope) error {
-	hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+func (u *User) BeforeCreate(scope *gorm.Scope) error {
+	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
@@ -36,11 +36,11 @@ func (user *User) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
-func (user *User) BeforeUpdate(scope *gorm.Scope) error {
-	cost, _ := bcrypt.Cost([]byte(user.Password))
+func (u *User) BeforeUpdate(scope *gorm.Scope) error {
+	cost, _ := bcrypt.Cost([]byte(u.Password))
 
 	if cost == 0 {
-		hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+		hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 		if err != nil {
 			return err
 		}
@@ -49,13 +49,13 @@ func (user *User) BeforeUpdate(scope *gorm.Scope) error {
 	return nil
 }
 
-func (user *User) ToJSON() map[string]interface{} {
-	userObject := structs.Map(user)
+func (u *User) ToJSON() map[string]interface{} {
+	userObject := structs.Map(u)
 	delete(userObject, "password")
 	return userObject
 }
-func (user *User) ComparePassword(password string) bool {
-	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+func (u *User) ComparePassword(password string) bool {
+	if err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password)); err != nil {
 		return false
 	}
 
