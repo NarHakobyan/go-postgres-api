@@ -18,7 +18,7 @@ func main() {
 	flag.Parse()
 
 	if *dbSync == true {
-		database.Db.AutoMigrate(&models.User{})
+		database.Db.AutoMigrate(&models.User{}, &models.Store{})
 		fmt.Println("Database sync was successfully done")
 		return
 	}
