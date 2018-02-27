@@ -17,7 +17,7 @@ import (
 type User struct {
 	Model
 	Name     string         `form:"name" json:"name" valid:"required~Name is required"`
-	Email    string         `form:"email" json:"email" valid:"email~Email isn't valid"`
+	Email    string         `form:"email" gorm:"unique_index" json:"email" valid:"email~Email isn't valid"`
 	Password string         `form:"password" json:"-" valid:"required~Password is required"`
 	BirthDay time.Time      `form:"birthday" json:"birthday" valid:"required~Birth day is required" time_format:"02-01-2006"`
 	Role     roles.RoleType `gorm:"default:0" json:"role"`
