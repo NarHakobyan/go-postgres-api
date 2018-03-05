@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"github.com/narhakobyan/go-pg-api/config"
+	_ "github.com/narhakobyan/go-pg-api/config"
 	"github.com/narhakobyan/go-pg-api/database"
 	"github.com/narhakobyan/go-pg-api/database/models"
 	. "github.com/narhakobyan/go-pg-api/http/router"
@@ -32,5 +32,5 @@ func main() {
 	Router.Use(gin.Logger())
 	Router.Use(gin.Recovery())
 
-	Router.Run(":" + config.C.Server.Port)
+	Router.Run(":" + viper.GetString("server.port"))
 }

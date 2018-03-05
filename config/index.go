@@ -7,20 +7,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-type config struct {
-	Server struct {
-		Port string
-	}
-	Database struct {
-		Host     string
-		User     string
-		DbName   string
-		Password string
-	}
-}
-
-var C config
-
 func init() {
 	configFile, err := filepath.Abs("./config")
 
@@ -44,8 +30,4 @@ func init() {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 
-	err = viper.Unmarshal(&C)
-	if err != nil {
-		panic(fmt.Errorf("Unable to decode into struct: %s \n", err))
-	}
 }
