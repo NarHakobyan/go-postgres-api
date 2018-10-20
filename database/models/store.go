@@ -1,7 +1,7 @@
 package models
 
 import (
-	. "github.com/narhakobyan/go-pg-api/database"
+	. "github.com/NarHakobyan/go-postgres-api/database"
 )
 
 //go:generate goqueryset -in store.go

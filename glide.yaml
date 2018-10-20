@@ -1,4 +1,4 @@
-package: github.com/narhakobyan/go-pg-api
+package: github.com/narhakobyan/go-postgres-api
 import:
 - package: github.com/asaskevich/govalidator
   version: ^8.0.0

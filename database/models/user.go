@@ -3,10 +3,10 @@ package models
 import (
 	"time"
 
+	"github.com/NarHakobyan/go-postgres-api/core/constants/roles"
+	. "github.com/NarHakobyan/go-postgres-api/database"
 	"github.com/fatih/structs"
 	"github.com/jinzhu/gorm"
-	"github.com/narhakobyan/go-pg-api/core/constants/roles"
-	. "github.com/narhakobyan/go-pg-api/database"
 	"golang.org/x/crypto/bcrypt"
 )
 

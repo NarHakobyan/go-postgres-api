@@ -4,13 +4,13 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/NarHakobyan/go-postgres-api/core/auth"
+	"github.com/NarHakobyan/go-postgres-api/core/constants"
+	"github.com/NarHakobyan/go-postgres-api/core/constants/roles"
+	"github.com/NarHakobyan/go-postgres-api/database"
+	"github.com/NarHakobyan/go-postgres-api/database/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/narhakobyan/go-pg-api/core/auth"
-	"github.com/narhakobyan/go-pg-api/core/constants"
-	"github.com/narhakobyan/go-pg-api/core/constants/roles"
-	"github.com/narhakobyan/go-pg-api/database"
-	"github.com/narhakobyan/go-pg-api/database/models"
 )
 
 func AuthMiddleware(roles []roles.RoleType) gin.HandlerFunc {

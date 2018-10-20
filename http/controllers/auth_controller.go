@@ -3,14 +3,14 @@ package controllers
 import (
 	"time"
 
+	"github.com/NarHakobyan/go-postgres-api/core/auth"
+	. "github.com/NarHakobyan/go-postgres-api/database/models"
+	"github.com/NarHakobyan/go-postgres-api/http/response"
 	"github.com/asaskevich/govalidator"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/fatih/structs"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/narhakobyan/go-pg-api/core/auth"
-	. "github.com/narhakobyan/go-pg-api/database/models"
-	"github.com/narhakobyan/go-pg-api/http/response"
 )
 
 type authController struct{}

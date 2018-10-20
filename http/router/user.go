@@ -1,11 +1,11 @@
 package router
 
 import (
+	"github.com/NarHakobyan/go-postgres-api/core/constants/roles"
+	. "github.com/NarHakobyan/go-postgres-api/http/controllers"
+	"github.com/NarHakobyan/go-postgres-api/http/middlewares"
+	"github.com/NarHakobyan/go-postgres-api/http/response"
 	"github.com/gin-gonic/gin"
-	"github.com/narhakobyan/go-pg-api/core/constants/roles"
-	. "github.com/narhakobyan/go-pg-api/http/controllers"
-	"github.com/narhakobyan/go-pg-api/http/middlewares"
-	"github.com/narhakobyan/go-pg-api/http/response"
 )
 
 var UserRouter *gin.RouterGroup

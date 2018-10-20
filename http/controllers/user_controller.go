@@ -4,13 +4,13 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/NarHakobyan/go-postgres-api/core/constants/roles"
+	. "github.com/NarHakobyan/go-postgres-api/database"
+	. "github.com/NarHakobyan/go-postgres-api/database/models"
+	"github.com/NarHakobyan/go-postgres-api/http/response"
 	"github.com/asaskevich/govalidator"
 	"github.com/fatih/structs"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/narhakobyan/go-pg-api/core/constants/roles"
-	. "github.com/narhakobyan/go-pg-api/database"
-	. "github.com/narhakobyan/go-pg-api/database/models"
-	"github.com/narhakobyan/go-pg-api/http/response"
 )
 
 type updateUser struct {

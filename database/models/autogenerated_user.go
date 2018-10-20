@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/NarHakobyan/go-postgres-api/core/constants/roles"
 	"github.com/jinzhu/gorm"
-	"github.com/narhakobyan/go-pg-api/core/constants/roles"
 )
 
 // ===== BEGIN of all query sets

@@ -3,9 +3,9 @@ package response
 import (
 	"net/http"
 
+	"github.com/NarHakobyan/go-postgres-api/core/constants"
+	"github.com/NarHakobyan/go-postgres-api/database/models"
 	"github.com/gin-gonic/gin"
-	"github.com/narhakobyan/go-pg-api/core/constants"
-	"github.com/narhakobyan/go-pg-api/database/models"
 )
 
 type Context struct {
